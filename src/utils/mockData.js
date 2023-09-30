@@ -1,45 +1,3 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-
-const Header = () => {
-  return (
-      <div className="header">
-       <div className="logo-container">
-                <img src="https://www.logodesign.net/logo/smoking-burger-with-lettuce-3624ld.png"/>
-            </div>
-            <div className="nav-items">
-                <ul>
-                    <li>Home</li>
-                    <li>About</li>
-                    <li>Contact Us</li>
-                    <li>Cart</li>
-                </ul>
-            </div>
-      </div>
-  )
-}
-
-const ResturantCard = (props) =>{
-    const {resData} = props
-    const {cloudinaryImageId,name,cuisines,avgRating,costForTwo,deliveryTime} = resData?.data
-    return (
-        <div className="res-card">
-            <img
-             className="res-logo"
-             alt="res-logo"
-             src={
-                "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/" +
-                resData.data.cloudinaryImageId
-              }/>
-            <h3>{name}</h3>
-            <h4>{cuisines.join(",")}</h4>
-            <h4>{avgRating} stars</h4>
-            <h4>{costForTwo/100} FOR TWO</h4>
-            <h4>{deliveryTime} minutes</h4>
-        </div>
-    )
-}
- 
 let resList = [
     {
         type: "restaurant",
@@ -1925,40 +1883,4 @@ let resList = [
       }
     ]
 
-
-const Body = () =>{
-    return (
-       <div className="body">
-         <div className="search">Search</div>
-         <div className="res-container">
-            {
-              resList.map(resturant=> <ResturantCard key={resturant.data.id} resData={resturant}/> )
-            } 
-        
-        </div>
-       </div>
-
-
-
-    )
-}
-
-const AppLayout = () =>{
-    return  (
-        <div className="app">
-            <Header/>
-            <Body/>
-        </div>
-        
-    )
-
-}
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-
-//root.render(jsxHeading)
-
-root.render(<AppLayout />)
-
-
-
+    export default resList
