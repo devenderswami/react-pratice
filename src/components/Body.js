@@ -2,6 +2,8 @@ import ResturantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import Shimmer from "./shimmer";
 import {Link} from "react-router-dom"
+import useOnlineStatus from "../utils/useOnlineStatus";
+
 
 const Body = () => {
   // State variable = super power variable
@@ -30,23 +32,33 @@ const Body = () => {
     setfilteredRestaurant(resList);
   };
 
+  const onlineStatus = useOnlineStatus();
+
+  if(onlineStatus==false){
+     return (
+      <h1>Looks like you are offline !! Please check your internet connection; </h1>
+     )
+  }
+
+
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search">
-          <input type="text" className="search-box" value={searchText}  onChange={(e)=>{
+      <div className="filter flex items-center">
+        <div className="search m-4 p-4">
+          <input type="text" className="border border-solid border-black" value={searchText}  onChange={(e)=>{
             setSearchText(e.target.value)
           }}/>
-          <button 
+          <button className="px-4 py-2 bg-green-100 m-4 rounded-lg"
           onClick={()=>{
              const filteredResturant = listOfRestaurants.filter((res)=>res.card.card.info.name.toLowerCase().includes(searchText.toLowerCase()))
              setfilteredRestaurant(filteredResturant)
           }}>search</button>
         </div>
+        <div className="search m-4 p-4">
         <button
-          className="filter-btn"
+          className="px-4 py-2 bg-gray-100 rounded-lg"
           onClick={() => {
             const filteredData = listOfResturants.filter(
               (res) => res.card.card.info.avgRating > 4
@@ -56,8 +68,10 @@ const Body = () => {
         >
           Top Rated Resturants
         </button>
+        </div>
+       
       </div>
-      <div className="res-container">
+      <div className="flex flex-wrap">
         {filteredRestaurant.map((resturant) => (
          <Link  key={resturant.card.card.info.id} to={"/restaurants/"+resturant.card.card.info.id}>
          <ResturantCard

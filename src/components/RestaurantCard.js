@@ -3,7 +3,7 @@ const ResturantCard = (props) =>{
     const {resData} = props
     const {cloudinaryImageId,name,cuisines,avgRating,costForTwo,deliveryTime} = resData?.card?.card?.info
     return (
-        <div className="res-card">
+        <div className="m-4 p-4 w-[250px] bg-gray-100 hover:bg-gray-200">
             <img
              className="res-logo"
              alt="res-logo"
